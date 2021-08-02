@@ -1,0 +1,462 @@
+:root {
+  --blue: #1e90ff;
+  --blue-secondary: #6cb5ff;
+  --blue-dark: #0079f1;
+  --main-background: #2c3e50;
+  --white-background: #eaecee;
+  --yellow: yellow;
+  --yellow-secondary: rgb(255, 255, 140);
+  --yellow-dark: rgb(255, 208, 0);
+  --transition-time: 0.4s;
+  --tools-border-radius: 4px;
+  --logo-nyancat-shadow-radius: 40px;
+  --tools-shadow-radius: 20px;
+}
+
+header {
+  background-color: var(--main-background);
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  width: 100vw;
+  min-height: 60px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+body {
+  font-family: "Century Gothic";
+  letter-spacing: 0.05rem;
+}
+
+h4 {
+  cursor: default;
+  margin: 0;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--white-background);
+}
+
+h5 {
+  cursor: default;
+  text-align: center;
+  margin: 0;
+  transition-duration: var(--transition-time);
+  font-size: 10px;
+  color: var(--white-background);
+}
+
+.highlighted-text {
+  color: var(--yellow-dark);
+}
+
+select,
+button,
+a {
+  font-family: "Century Gothic";
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+}
+
+a {
+  display: flex;
+  align-items: center;
+  padding: 2px 11px;
+  text-decoration: none;
+  color: #ffffff;
+  margin-left: 0.5em;
+  border-radius: 15px;
+  background-color: #1d92ff;
+  transition-duration: var(--transition-time);
+}
+
+a:hover {
+  background-color: #43a4ff;
+}
+
+a:active {
+  background-color: #0084ff;
+}
+
+.canvas {
+  position: absolute;
+  width: 100vw;
+  height: 91vh;
+  flex-grow: 0;
+  flex-shrink: 0;
+  touch-action: none;
+}
+
+.tools-section {
+  margin: 0.7em 0.6em 0.6em;
+}
+
+.container-git-link {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  white-space: nowrap;
+  margin-right: 1em;
+  margin-bottom: 0.5em;
+}
+
+.git-link:hover {
+  filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(170deg) brightness(100%) contrast(90%);
+}
+
+.git-link {
+  color: #ffffff;
+  font-family: Century Gothic;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: transparent;
+  transition-duration: 0s;
+  justify-content: end;
+  padding: 0;
+  margin: 0;
+  align-items: flex-end;
+  cursor: pointer;
+}
+
+.git-link:hover {
+  background-color: transparent;
+  
+}
+
+.git-logo {
+  width: 2em;
+  height: 2em;
+  margin-right: 0.5em;
+}
+
+.container-clear-save {
+  display: flex;
+  flex-direction: row;
+  margin: 0.7em 0.5em 0.6em;
+}
+
+.container-tools-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 0.25em;
+  height: 40px;
+  background-color: var(--white-background);
+  border-radius: var(--tools-border-radius);
+}
+
+.container-color-with-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 85px;
+  margin: 0.4em 0.3em 0.7em;
+}
+
+.select-stroke-solid {
+  margin-top: 1.3em;
+  height: 30px;
+  font-size: 0.8rem;
+  color: #000000;
+  background: #ffffff;
+  border-radius: var(--tools-border-radius);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition-duration: var(--transition-time);
+}
+
+.select-stroke-solid:hover {
+  box-shadow: 0 0 var(--tools-shadow-radius) var(--blue);
+}
+
+.select-stroke-solid-option {
+  color: white;
+  background: var(--main-background);
+}
+
+.container-slider-width {
+  position: relative;
+  margin: 0.45em;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slider-width {
+  margin: auto;
+  width: 200px;
+}
+
+.slider-width-label {
+  text-align: center;
+}
+
+.logo-nyancat {
+  min-height: 60px;
+  width: inherit;
+  margin: auto;
+  z-index: 2;
+  animation: 4s linear 0s infinite alternate movingNyanCatLogo;
+}
+
+/* Input type="color" */
+input[type="color"] {
+  -webkit-appearance: none;
+  position: relative;
+  border: none;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  box-sizing: border-box;
+  border: none;
+}
+
+/* Input type="range" */
+/* Chrome */
+input[type="range"] {
+  overflow: hidden;
+  -webkit-appearance: none;
+  background-color: #eaecee;
+  border-radius: var(--tools-border-radius);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 12px;
+  -webkit-appearance: none;
+  color: var(--blue);
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: -100px 0 0 100px var(--blue);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 10px;
+  -webkit-appearance: none;
+  height: 12px;
+  cursor: pointer;
+  background: #696969;
+  box-shadow: -100px 0 0 100px var(--blue);
+}
+
+/* Firefox*/
+input[type="range"]::-moz-range-progress {
+  background-color: var(--white-background);
+}
+input[type="range"]::-moz-range-track {
+  background-color: var(--blue);
+}
+/* Internet Explorer*/
+input[type="range"]::-ms-fill-lower {
+  background-color: var(--white-background);
+}
+input[type="range"]::-ms-fill-upper {
+  background-color: var(--blue);
+}
+
+.container-color-tools {
+  display: flex;
+  align-content: flex-start;
+}
+
+.container-colors-palette {
+  position: relative;
+  margin: 0.5em;
+  z-index: 1;
+}
+
+.grid-colors-palette {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  align-content: flex-start;
+  width: 200px;
+  height: 40px;
+  margin: 0.15em;
+}
+
+.colors-palette-background {
+  position: absolute;
+  z-index: -1;
+  width: 205px;
+  height: 45px;
+  background-color: var(--white-background);
+  border-radius: var(--tools-border-radius);
+}
+
+.container-current-color {
+  position: relative;
+}
+
+.current-color {
+  box-sizing: border-box;
+  height: inherit;
+  width: inherit;
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  border: solid 2px var(--white-background);
+  border-radius: var(--tools-border-radius);
+}
+
+.color-picker {
+  height: 20px;
+  width: 30px;
+  margin: 0.2em;
+  transition-duration: var(--transition-time);
+  cursor: pointer;
+}
+.color-picker:hover {
+  box-shadow: 0 0 var(--tools-shadow-radius) var(--blue);
+}
+
+.btn-clear {
+  border-radius: 15px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.btn-clear:hover {
+  background-color: #f1948a;
+  color: #ffffff;
+}
+
+.btn-clear:active {
+  background-color: #e74c3c;
+  color: #ffffff;
+}
+
+.btn-rectangle {
+  background: url("./images/btn-rect.png") no-repeat scroll 0 0 transparent;
+}
+
+.btn-arc {
+  background: url("./images/btn-arc.png") no-repeat scroll 0 0 transparent;
+  border-radius: 50%;
+}
+
+.btn-line {
+  background: url("./images/btn-line.png") no-repeat scroll 0 0 transparent;
+  border-radius: 3px;
+}
+
+.btn-eraser {
+  background: url("./images/btn-eraser.png") no-repeat scroll 0 0 transparent;
+  border-radius: 3px;
+}
+
+.btn-brush {
+  background: url("./images/btn-brush.png") no-repeat scroll 0 0 transparent;
+  border-radius: 3px;
+}
+
+.btn-nyanCat {
+  background: url("./images/btn-nyanCat.png") no-repeat scroll 0 0 transparent;
+  border-radius: 3px;
+}
+
+.btn-color-rainbow {
+  background: url("./images/btn-colorRainbow.png") no-repeat scroll 0 0
+    transparent;
+  background-size: 100% 100%;
+}
+
+.btn-color-rainbow-active {
+  box-shadow: 0 0 var(--tools-shadow-radius) var(--yellow);
+}
+
+.btn-color-rainbow:hover {
+  transition-duration: var(--transition-time);
+  box-shadow: 0 0 var(--tools-shadow-radius) var(--yellow);
+}
+
+.btn-tools {
+  margin: 0.3em;
+  height: 30px;
+  width: 40px;
+  background-size: 100% 100%;
+}
+
+.btn-tools:hover {
+  box-shadow: 0 0 var(--tools-shadow-radius) var(--blue);
+  background-color: var(--blue);
+}
+
+.btn-tools:active {
+  background-color: var(--blue-dark);
+}
+
+.btn-color-tools {
+  margin-top: 0.3em;
+  height: 25px;
+  width: 35px;
+  border-radius: var(--tools-border-radius);
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-color: transparent;
+  transition-duration: var(--transition-time);
+}
+
+.btn-colors-palette {
+  border-color: transparent;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.btn-colors-palette:hover {
+  border: 2px solid #00ffff;
+}
+
+.btn-toggled {
+  background-color: var(--blue-secondary);
+}
+
+.btn-nyanCat:hover {
+  transition-duration: var(--transition-time);
+  background-color: var(--yellow);
+  box-shadow: 0 0 var(--tools-shadow-radius) var(--yellow);
+}
+
+.btn-nyanCat:active {
+  background-color: var(--yellow-dark);
+  box-shadow: 0 0 var(--tools-shadow-radius) var(--yellow-dark);
+}
+
+.btn-nyanCat-toggled {
+  background-color: var(--yellow-secondary);
+  box-shadow: 0 0 var(--tools-shadow-radius) var(--yellow-secondary);
+}
+
+@keyframes movingNyanCatLogo {
+  from {
+    margin-left: -20%;
+  }
+  to {
+    margin-left: 150%;
+  }
+}
+
+*[disabled],
+*[disabled]:hover,
+*[disabled] + label {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+  border: none;
+}

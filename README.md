@@ -2,7 +2,6 @@
 
 # If you need to draw something impressive, this is the way to go
 
-![impressive-app-1](https://user-images.githubusercontent.com/75623459/127854627-a9eb2d3d-d0ea-48e5-b552-ff5875005ed0.jpg)
 
 # Features
 

@@ -2,10 +2,10 @@
 
 # If you need to draw something impressive, this is the way to go
 
+![impressive-app-main](https://user-images.githubusercontent.com/75623459/128006442-7d9e28b7-b94b-42db-b4cf-4d9ee0631b79.jpg)
+
 
 # Features
-
-### Secret Cat Mode - be ware of the flying cat
 
 ### Main Tools
 
@@ -24,6 +24,10 @@
 - `Colors hotbar for a quick access`
 
 - `Rainbow Color button - start drawing with a changing rainbow color`
+
+### Secret Cat Mode - be ware of the flying cat
+
+
 
 ### Miscellaneous
 

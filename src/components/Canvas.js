@@ -10,7 +10,7 @@ export default function Canvas(props) {
     handleMouseUp,
     handleMouseMove,
   } = props;
-
+ 
   return (
     <div className="canvas-box">
       <div className="canvas-background"></div>

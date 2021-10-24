@@ -1,7 +1,12 @@
-## Drawing App
+# Drawing App
+
+## [PLAY DEMO](https://aleksns.github.io/impressive-painter/)
 <br />
 
 # If you need to draw something impressive, this is the way to go
+
+<br />
+
 
 ![impressive-app-main](https://user-images.githubusercontent.com/75623459/128006442-7d9e28b7-b94b-42db-b4cf-4d9ee0631b79.jpg)
 
@@ -45,3 +50,4 @@
 
 - `All buttons have 3 different states: normal, hover, active`
 
+###### Made by aleksns

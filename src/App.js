@@ -1,14 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./App.css";
-import Arc from "./shapes/Arc";
-import Rectangle from "./shapes/Rectangle";
-import Line from "./shapes/Line";
-import Brush from "./tools/Brush";
-import Eraser from "./tools/Eraser";
+import ShapesComponent from "./shapes/ShapesComponent";
+import BrushComponent from "./tools/BrushComponent";
 import NyanCat from "./tools/NyanCat";
-import BrushRainbow from "./tools/BrushRainbow";
 import Canvas from "./components/Canvas";
-import HeaderComponents from "./components/HeaderComponents";
+import HeaderComponent from "./components/HeaderComponent";
 
 export default function App() {
   const canvasRef = useRef(null);
@@ -20,8 +16,9 @@ export default function App() {
   const [currentTool, setCurrentTool] = useState("brush");
   const [isStroke, setIsStroke] = useState(true);
   const [isColorRainbow, setIsColorRainbow] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
 
-  const [width, setWidth] = useState(15);
+  const [width, setWidth] = useState(40);
   const widthHalf = width / 2;
 
   const cursorDefault = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23000000" opacity="0.2" height="${width}" viewBox="0 0 ${width} ${width}" width="${width}"><circle cx="${widthHalf}" cy="${widthHalf}" r="${widthHalf}" fill="%23000000" /></svg>') ${widthHalf} ${widthHalf}, auto`;
@@ -37,42 +34,43 @@ export default function App() {
     );
   };
 
-  const { startDrawingArc, finishDrawingArc, drawArc } = Arc(
-    context2Ref,
+  const {
+    startDrawingShape,
+    finishDrawingArc,
+    drawArc,
+    finishDrawingRect,
+    drawRect,
+    finishDrawingLine,
+    drawLine,
+  } = ShapesComponent(
     contextRef,
+    context2Ref,
     canvasRef,
     clearTheCanvas,
     isStroke,
-    currentColor
-  );
-  const { startDrawingRect, finishDrawingRect, drawRect } = Rectangle(
-    context2Ref,
-    contextRef,
-    canvasRef,
-    clearTheCanvas,
-    isStroke,
-    currentColor
-  );
-  const { startDrawingLine, finishDrawingLine, drawLine } = Line(
-    context2Ref,
-    contextRef,
-    canvasRef,
-    clearTheCanvas
-  );
-  const { startDrawingBrush, finishDrawingBrush, drawBrush } =
-    Brush(context2Ref);
-
-  const { setEraserColor, cursorEraser } = Eraser(
-    context2Ref,
-    width,
-    widthHalf
+    currentColor,
+    getScaledMouseCoordinates,
+    isMouseDown,
+    setIsMouseDown
   );
 
   const {
-    startDrawingBrushRainbow,
-    finishDrawingBrushRainbow,
+    startDrawingBrush,
+    finishDrawingBrush,
+    drawBrush,
+    setEraserColor,
+    cursorEraser,
     drawBrushRainbow,
-  } = BrushRainbow(context2Ref, setCurrentColor);
+    rainbowColorChange,
+  } = BrushComponent(
+    context2Ref,
+    setCurrentColor,
+    getScaledMouseCoordinates,
+    isMouseDown,
+    setIsMouseDown,
+    width,
+    widthHalf
+  );
 
   const { cursorNyanCat, setNyanCatValues, isNyanCat, setIsNyanCat } =
     NyanCat(context2Ref);
@@ -80,27 +78,18 @@ export default function App() {
   const handleMouseDown = (e) => {
     switch (currentTool) {
       case "brush":
-        startDrawingBrush(e);
-        break;
-
-      case "rectangle":
-        startDrawingRect(e);
-        break;
-
-      case "arc":
-        startDrawingArc(e);
-        break;
-
       case "eraser":
         startDrawingBrush(e);
         break;
 
-      case "line":
-        startDrawingLine(e);
-        break;
-
       case "brushRainbow":
-        startDrawingBrushRainbow(e);
+        rainbowColorChange();
+        startDrawingBrush(e);
+
+      case "arc":
+      case "rectangle":
+      case "line":
+        startDrawingShape(e);
         break;
 
       default:
@@ -112,27 +101,21 @@ export default function App() {
   const handleMouseUp = (e) => {
     switch (currentTool) {
       case "brush":
+      case "eraser":
+      case "brushRainbow":
         finishDrawingBrush(e);
-        break;
-
-      case "rectangle":
-        finishDrawingRect(e);
         break;
 
       case "arc":
         finishDrawingArc(e);
         break;
 
-      case "eraser":
-        finishDrawingBrush(e);
+      case "rectangle":
+        finishDrawingRect(e);
         break;
 
       case "line":
         finishDrawingLine(e);
-        break;
-
-      case "brushRainbow":
-        finishDrawingBrushRainbow(e);
         break;
 
       default:
@@ -144,27 +127,24 @@ export default function App() {
   const handleMouseMove = (e) => {
     switch (currentTool) {
       case "brush":
+      case "eraser":
         drawBrush(e);
         break;
 
-      case "rectangle":
-        drawRect(e);
+      case "brushRainbow":
+        drawBrushRainbow(e);
         break;
 
       case "arc":
         drawArc(e);
         break;
 
-      case "eraser":
-        drawBrush(e);
+      case "rectangle":
+        drawRect(e);
         break;
 
       case "line":
         drawLine(e);
-        break;
-
-      case "brushRainbow":
-        drawBrushRainbow(e);
         break;
 
       default:
@@ -174,33 +154,29 @@ export default function App() {
   };
 
   useEffect(() => {
-    //first canvas (draft for shapes)
+    //draft canvas
     const canvas = canvasRef.current;
-    canvas.width = (window.innerWidth - 2) * 2;
-    canvas.height = (window.innerHeight - 70) * 2;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
     const context = canvas.getContext("2d");
-    canvas.style.width = `${window.innerWidth - 2}px`;
-    canvas.style.height = `${window.innerHeight - 70}px`;
-    context.scale(2, 2);
 
     context.lineCap = "round";
     context.strokeStyle = currentColor;
-    context.lineWidth = 15;
+    context.lineWidth = width;
     context.lineJoin = "round";
     contextRef.current = context;
 
-    //second canvas (main)
+    //main canvas
     const canvas2 = canvas2Ref.current;
-    canvas2.width = (window.innerWidth - 2) * 2;
-    canvas2.height = (window.innerHeight - 70) * 2;
+    canvas2.width = window.innerWidth;
+    canvas2.height = window.innerHeight;
+
     const context2 = canvas2.getContext("2d");
-    canvas2.style.width = `${window.innerWidth - 2}px`;
-    canvas2.style.height = `${window.innerHeight - 70}px`;
-    context2.scale(2, 2);
 
     context2.lineCap = "round";
     context2.strokeStyle = currentColor;
-    context2.lineWidth = 15;
+    context2.lineWidth = width;
     context2.lineJoin = "round";
     context2Ref.current = context2;
   }, []);
@@ -229,10 +205,28 @@ export default function App() {
     }
   };
 
+  function getScaledMouseCoordinates({ nativeEvent }) {
+    // calculate coordinates for the current resolution
+    var bounds = canvas2Ref.current.getBoundingClientRect();
+    const { offsetX, offsetY } = nativeEvent;
+
+    var x = offsetX;
+    var y = offsetY;
+    x = x / bounds.width;
+    y = y / bounds.height;
+
+    x = Math.floor(x * canvas2Ref.current.width);
+    y = Math.floor(y * canvas2Ref.current.height);
+
+    return {
+      x,
+      y,
+    };
+  }
+
   return (
     <>
-      <div className="background-main"></div>
-      <HeaderComponents
+      <HeaderComponent
         contextRef={contextRef}
         context2Ref={context2Ref}
         canvasRef={canvasRef}
@@ -254,6 +248,7 @@ export default function App() {
         setIsNyanCat={setIsNyanCat}
         setNyanCatValues={setNyanCatValues}
       />
+
       <Canvas
         cursorCustom={cursorCustom}
         canvasRef={canvasRef}

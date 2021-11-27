@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
-import logoNyanCat from "../images/logo-nyancat.png";
+import LogoNyanCat from "./LogoNyanCat";
 
 export default function ToolsContainer(props) {
   const {
@@ -139,84 +139,76 @@ export default function ToolsContainer(props) {
   }
 
   function WidthLabel() {
-    return(
-      <h4 className="slider-width-label">
-      Width: {width}
-    </h4>
-    )
+    return <h4 className="slider-width-label">Width: {width}</h4>;
   }
 
-  function LogoNyanCat() {
-    return (
-      <img src={logoNyanCat} className="logo-nyancat"></img>
-    )
-  }
-  
   useEffect(() => {
     handleCursorChange(currentCursor);
   }, [width, currentCursor]);
 
   return (
-    <div className="container-tools-box">
-      <div className="container-tools-btns">
+    <>
+      <div className="container-tools-btns tools-section">
         <button
           onClick={setRectangleTool}
-          className={`btn btn-rectangle ${isRectangle ? "btn-toggled" : ""}`}
+          className={`btn btn-tools btn-rectangle ${
+            isRectangle ? "btn-toggled" : ""
+          }`}
         ></button>
         <button
           onClick={setArcTool}
-          className={`btn btn-arc ${isArc ? "btn-toggled" : ""}`}
+          className={`btn btn-tools btn-arc ${isArc ? "btn-toggled" : ""}`}
         ></button>
         <button
           onClick={setLineTool}
-          className={`btn btn-line ${isLine ? "btn-toggled" : ""}`}
+          className={`btn btn-tools btn-line ${isLine ? "btn-toggled" : ""}`}
         ></button>
         <button
           onClick={setEraserTool}
-          className={`btn btn-eraser ${isEraser ? "btn-toggled" : ""}`}
+          className={`btn btn-tools btn-eraser ${
+            isEraser ? "btn-toggled" : ""
+          }`}
         ></button>
         <button
           onClick={setBrushTool}
-          className={`btn btn-brush ${isBrush ? "btn-toggled" : ""}`}
+          className={`btn btn-tools btn-brush ${isBrush ? "btn-toggled" : ""}`}
         ></button>
         <button
           onClick={setBrushRainbowTool}
-          className={`btn-nyanCat ${
+          className={`btn btn-tools btn-nyanCat ${
             isBrushRainbowTool ? "btn-nyanCat-toggled" : ""
           }`}
         ></button>
-        </div>
+      </div>
 
-        <select
-          disabled={!isRectangleOrArc()}
-          value={isStroke}
-          onChange={handleStrokeSolid}
-          className="select-stroke-solid"
-          placeholder="Fill"
-        >
-          <option value={true} className="select-stroke-solid-option">
-            Stroke
-          </option>
-          <option value={false} className="select-stroke-solid-option">
-            Fill
-          </option>
-        </select>
+      <select
+        disabled={!isRectangleOrArc()}
+        value={isStroke}
+        onChange={handleStrokeSolid}
+        className="select-stroke-solid"
+        style={isNyanCat ? { opacity: "0", cursor: "default" } : {}}
+      >
+        <option value={true} className="select-stroke-solid-option">
+          Stroke
+        </option>
+        <option value={false} className="select-stroke-solid-option">
+          Fill
+        </option>
+      </select>
 
-        <div className="slider-width-container">
-          <div className="slider-width-shadow" style={!isBrushRainbowTool? {visibility: "visible"} : {visibility: "hidden"}}></div>
-          {!isBrushRainbowTool?  <WidthLabel /> : <LogoNyanCat />}
-          <input
-            disabled={isNyanCat}
-            defaultValue={width}
-            type="range"
-            min="5"
-            max="80"
-            onChange={handleWidthChange}
-            className="slider-width-range"
-            style={!isBrushRainbowTool? {visibility: "visible"} : {visibility: "hidden"}}
-          />
-        </div>
-      
-    </div>
+      <div className="container-slider-width">
+        {!isNyanCat ? <WidthLabel /> : <LogoNyanCat />}
+        <input
+          disabled={isNyanCat}
+          defaultValue={width}
+          type="range"
+          min="5"
+          max="80"
+          onChange={handleWidthChange}
+          className="slider-width"
+          style={isNyanCat ? { opacity: "0" } : {}}
+        />
+      </div>
+    </>
   );
 }

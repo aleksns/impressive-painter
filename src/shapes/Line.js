@@ -1,30 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import "../App.css";
 
 export default function Line(
-  context2Ref,
   contextRef,
+  context2Ref,
   canvasRef,
-  clearTheCanvas
+  clearTheCanvas,
+  isMouseDown,
+  setIsMouseDown,
+  startX,
+  startY,
+  getScaledMouseCoordinates
 ) {
-  const [isMouseDown, setIsMouseDown] = useState(false);
-
-  const [startX, setStartX] = useState(null);
-  const [startY, setStartY] = useState(null);
-
   var endX;
   var endY;
-
-  const startDrawingLine = ({ nativeEvent }) => {
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
-    const { offsetX, offsetY } = nativeEvent;
-
-    setStartX(offsetX);
-    setStartY(offsetY);
-
-    setIsMouseDown(true);
-  };
 
   const finishDrawingLine = () => {
     context2Ref.current.beginPath();
@@ -45,10 +34,9 @@ export default function Line(
     if (!isMouseDown) {
       return;
     }
-    const { offsetX, offsetY } = nativeEvent;
-
-    endX = offsetX;
-    endY = offsetY;
+    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+    endX = x;
+    endY = y;
 
     clearTheCanvas(contextRef, canvasRef);
 
@@ -61,5 +49,5 @@ export default function Line(
     context2Ref.current.closePath();
   };
 
-  return { startDrawingLine, finishDrawingLine, drawLine };
+  return { finishDrawingLine, drawLine };
 }

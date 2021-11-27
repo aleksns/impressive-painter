@@ -21,20 +21,13 @@ export default function ClearAndSave(props) {
 
   return (
     <>
-      <div className="btn-clear-save-box">
-        <button onClick={handleclearAll} className="btn-clear-save btn-clear">
+      <div className="container-clear-save">
+        <button onClick={handleclearAll} className="btn btn-clear">
           CLEAR
         </button>
-        <div className="btn-clear-save btn-save">
-          <a
-            className="btn-save-label"
-            download="nice-drawing.png"
-            onClick={handleDownload}
-            href={dataUrl}
-          >
-            SAVE
-          </a>
-        </div>
+        <a download="nice-drawing.png" onClick={handleDownload} href={dataUrl}>
+          SAVE
+        </a>
       </div>
     </>
   );

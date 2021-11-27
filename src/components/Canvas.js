@@ -10,18 +10,17 @@ export default function Canvas(props) {
     handleMouseUp,
     handleMouseMove,
   } = props;
- 
+
   return (
-    <div className="canvas-box">
-      <div className="canvas-background"></div>
+    <>
       <canvas
         id="draft-layer"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
         ref={canvasRef}
-        className="canvas-layer1"
-        style={{ cursor: cursorCustom }}
+        style={{ cursor: cursorCustom, zIndex: "1" }}
+        className="canvas"
       />
       <canvas
         id="main-layer"
@@ -29,8 +28,9 @@ export default function Canvas(props) {
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
         ref={canvas2Ref}
-        className="canvas-layer2"
+        style={{ zIndex: "0" }}
+        className="canvas"
       />
-    </div>
+    </>
   );
 }

@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import "../App.css";
 
 export default function Arc(
-  context2Ref,
   contextRef,
+  context2Ref,
   canvasRef,
   clearTheCanvas,
   isStroke,
-  currentColor
+  currentColor,
+  isMouseDown,
+  setIsMouseDown,
+  startX,
+  startY,
+  getScaledMouseCoordinates
 ) {
-  const [isMouseDown, setIsMouseDown] = useState(false);
-  const [startX, setStartX] = useState(null);
-  const [startY, setStartY] = useState(null);
-
   var endX;
 
   const handleArcFill = (contextRefValue) => {
@@ -24,21 +25,7 @@ export default function Arc(
     }
   };
 
-  const startDrawingArc = ({ nativeEvent }) => {
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
-
-    const { offsetX, offsetY } = nativeEvent;
-
-    setStartX(offsetX);
-    setStartY(offsetY);
-
-    setIsMouseDown(true);
-  };
-
-  const finishDrawingArc = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
-    endX = offsetX;
+  const finishDrawingArc = () => {
     let radius = endX - startX;
 
     if (radius < 0) {
@@ -60,9 +47,9 @@ export default function Arc(
     if (!isMouseDown) {
       return;
     }
-    const { offsetX, offsetY } = nativeEvent;
+    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+    endX = x;
 
-    endX = offsetX;
     clearTheCanvas(contextRef, canvasRef);
     let radius = endX - startX;
 
@@ -76,5 +63,5 @@ export default function Arc(
     handleArcFill(contextRef);
   };
 
-  return { startDrawingArc, finishDrawingArc, drawArc };
+  return { finishDrawingArc, drawArc };
 }

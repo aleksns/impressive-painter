@@ -32,7 +32,7 @@ export default function ColorPalette(props) {
 
   const handleColorRainbowChange = () => {
     setIsColorRainbow(!isColorRainbow);
-    if (isColorRainbow == false) {
+    if (!isColorRainbow) {
       setCurrentTool("brushRainbow");
       return;
     }
@@ -52,44 +52,45 @@ export default function ColorPalette(props) {
 
   return (
     <>
-      <div className="container-palette-box">
-        <div className="container-palette-background"></div>
-        <div className="container-palette-main">
-          <div className="current-color-box">
-            <div
-              className="current-color"
-              style={
-                !isColorChangeNotAllowed()
-                  ? { background: currentColor }
-                  : { background: currentColor, opacity: 0.5 }
-              }
-            ></div>
-            <input
-              disabled={isColorChangeNotAllowed()}
-              id="color-picker"
-              type="color"
-              value={currentColor}
-              className="color-picker"
-              style={
-                isColorChangeNotAllowed()
-                  ? { visibility: "hidden" }
-                  : { visibility: "visible" }
-              }
-              onChange={handleColorPickerChange}
-            ></input>
-          </div>
-          <BtnsColorContainer
-            handleColorPaletteChange={handleColorPaletteChange}
-            isColorChangeNotAllowed={isColorChangeNotAllowed}
-          />
-          <button
-            disabled={!isColorRainbowChangeAllowed()}
-            className={`btn-color-rainbow ${
-              isColorRainbow ? "btn-color-rainbow-active" : ""
-            }`}
-            onClick={handleColorRainbowChange}
-          ></button>
+      <div
+        className="container-color-tools"
+        style={isNyanCat ? { opacity: "0", cursor: "default" } : {}}
+      >
+        <div className="container-current-color btn-color-tools tools-section">
+          <div
+            className="current-color"
+            style={
+              !isColorChangeNotAllowed()
+                ? { background: currentColor }
+                : {
+                    background: currentColor,
+                    opacity: 0.6,
+                  }
+            }
+          ></div>
+          <input
+            disabled={isColorChangeNotAllowed()}
+            id="input-color-picker"
+            type="color"
+            value="#000000"
+            className="color-picker"
+            style={isColorChangeNotAllowed() ? { opacity: 0 } : {}}
+            onChange={handleColorPickerChange}
+          ></input>
         </div>
+        <BtnsColorContainer
+          handleColorPaletteChange={handleColorPaletteChange}
+          isColorChangeNotAllowed={isColorChangeNotAllowed}
+          isNyanCat={isNyanCat}
+        />
+        <button
+          disabled={!isColorRainbowChangeAllowed()}
+          className={`btn btn-color-tools btn-color-rainbow tools-section ${
+            isColorRainbow ? "btn-color-rainbow-active" : ""
+          }`}
+          style={isNyanCat ? { cursor: "default" } : {}}
+          onClick={handleColorRainbowChange}
+        ></button>
       </div>
     </>
   );

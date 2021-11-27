@@ -1,42 +1,25 @@
 import React, { useState } from "react";
 import "../App.css";
 
-export default function Brush(context2Ref) {
-  const [isMouseDown, setIsMouseDown] = useState(false);
-
-  const startDrawingBrush = ({ nativeEvent }) => {
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
-    setIsMouseDown(true);
-    const { offsetX, offsetY } = nativeEvent;
-
-    context2Ref.current.beginPath();
-    context2Ref.current.moveTo(offsetX, offsetY);
-
-    context2Ref.current.lineTo(offsetX, offsetY);
-    context2Ref.current.stroke();
-  };
-
-  const finishDrawingBrush = (e) => {
-    context2Ref.current.closePath();
-    setIsMouseDown(false);
-  };
-
+export default function Brush(
+  context2Ref,
+  getScaledMouseCoordinates,
+  isMouseDown
+) {
   const drawBrush = ({ nativeEvent }) => {
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
     if (!isMouseDown) {
       return;
     }
+    nativeEvent.preventDefault();
+    nativeEvent.stopPropagation();
 
-    const { offsetX, offsetY } = nativeEvent;
-    context2Ref.current.lineTo(offsetX, offsetY);
+    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+
+    context2Ref.current.lineTo(x, y);
     context2Ref.current.stroke();
   };
 
   return {
-    startDrawingBrush,
-    finishDrawingBrush,
     drawBrush,
   };
 }

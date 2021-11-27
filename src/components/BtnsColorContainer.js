@@ -1,46 +1,32 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 import * as services from "../services/services";
 
 const listOfColors = services.getColors();
 
-const useStyles = makeStyles((theme) => ({
-  btnColors: {
-    borderColor: "transparent",
-    height: "20px",
-    width: "20px",
-    cursor: "pointer",
-    "&:hover": {
-      border: "2px solid #00FFFF",
-    },
-  },
-  btnColorsDisabled: {
-    borderColor: "transparent",
-    height: "20px",
-    width: "20px",
-    cursor: "not-allowed",
-  },
-}));
-
 export default function BtnsColorContainer(props) {
-  const classes = useStyles();
-  const { handleColorPaletteChange, isColorChangeNotAllowed } = props;
+  const { handleColorPaletteChange, isColorChangeNotAllowed, isNyanCat } = props;
 
   return (
     <>
-      {listOfColors.map((item) => (
-        <button
-          disabled={isColorChangeNotAllowed()}
-          onClick={() => handleColorPaletteChange(item.value)}
-          className={
-            !isColorChangeNotAllowed()
-              ? classes.btnColors
-              : classes.btnColorsDisabled
-          }
-          style={{ backgroundColor: item.value }}
-        ></button>
-      ))}
+      <div className="container-colors-palette">
+        <div className="colors-palette-background"></div>
+        <div className="grid-colors-palette">
+          {listOfColors.map((item) => (
+            <button
+              key={item.id}
+              disabled={isColorChangeNotAllowed()}
+              onClick={() => handleColorPaletteChange(item.value)}
+              className="btn-colors-palette"
+              style={
+                isNyanCat
+                  ? { cursor: "default" }
+                  : { backgroundColor: item.value }
+              }
+            ></button>
+          ))}
+        </div>
+      </div>
     </>
   );
 }

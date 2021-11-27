@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import "../App.css";
 
 export default function Rectangle(
-  context2Ref,
   contextRef,
+  context2Ref,
   canvasRef,
   clearTheCanvas,
   isStroke,
-  currentColor
+  currentColor,
+  isMouseDown,
+  setIsMouseDown,
+  startX,
+  startY,
+  getScaledMouseCoordinates
 ) {
-  const [isMouseDown, setIsMouseDown] = useState(false);
-  const [startX, setStartX] = useState(null);
-  const [startY, setStartY] = useState(null);
-
   var endX;
   var endY;
+
   var width;
   var height;
 
@@ -27,16 +29,6 @@ export default function Rectangle(
     }
   };
 
-  const startDrawingRect = ({ nativeEvent }) => {
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
-    const { offsetX, offsetY } = nativeEvent;
-
-    setStartX(offsetX);
-    setStartY(offsetY);
-    setIsMouseDown(true);
-  };
-
   const finishDrawingRect = () => {
     handleRectFill(context2Ref);
     clearTheCanvas(contextRef, canvasRef);
@@ -47,9 +39,9 @@ export default function Rectangle(
     if (!isMouseDown) {
       return;
     }
-    const { offsetX, offsetY } = nativeEvent;
-    endX = offsetX;
-    endY = offsetY;
+    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+    endX = x;
+    endY = y;
 
     clearTheCanvas(contextRef, canvasRef);
     width = endX - startX;
@@ -57,9 +49,5 @@ export default function Rectangle(
     handleRectFill(contextRef);
   };
 
-  return {
-    startDrawingRect,
-    finishDrawingRect,
-    drawRect,
-  };
+  return { finishDrawingRect, drawRect };
 }

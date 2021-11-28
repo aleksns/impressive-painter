@@ -39,6 +39,7 @@ export default function Rectangle(
     if (!isMouseDown) {
       return;
     }
+
     var { x, y } = getScaledMouseCoordinates({ nativeEvent });
     endX = x;
     endY = y;

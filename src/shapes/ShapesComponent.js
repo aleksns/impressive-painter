@@ -74,6 +74,6 @@ export default function ShapesComponent(
     finishDrawingRect,
     drawRect,
     finishDrawingLine,
-    drawLine,
+    drawLine
   };
 }

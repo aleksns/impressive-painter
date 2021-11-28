@@ -153,6 +153,28 @@ export default function App() {
     }
   };
 
+  const handleMouseOut = (e) => {
+    setIsMouseDown(false);
+
+    switch (currentTool) {
+      case "arc":
+        finishDrawingArc(e);
+        break;
+
+      case "line":
+        finishDrawingLine(e);
+        break;
+
+      case "rectangle":
+        finishDrawingRect(e);
+        break;
+
+      default:
+        console.log("Error. Something went wrong handling 'Mouse OUT event'.");
+        break;
+    }
+  };
+
   useEffect(() => {
     //draft canvas
     const canvas = canvasRef.current;
@@ -256,6 +278,7 @@ export default function App() {
         handleMouseDown={handleMouseDown}
         handleMouseUp={handleMouseUp}
         handleMouseMove={handleMouseMove}
+        handleMouseOut={handleMouseOut}
       />
     </>
   );

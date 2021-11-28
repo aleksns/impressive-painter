@@ -9,6 +9,7 @@ export default function Canvas(props) {
     handleMouseDown,
     handleMouseUp,
     handleMouseMove,
+    handleMouseOut
   } = props;
 
   return (
@@ -18,6 +19,7 @@ export default function Canvas(props) {
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
+        onMouseOut={handleMouseOut}
         ref={canvasRef}
         style={{ cursor: cursorCustom, zIndex: "1" }}
         className="canvas"
@@ -27,6 +29,7 @@ export default function Canvas(props) {
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
+        onMouseOut={handleMouseOut}
         ref={canvas2Ref}
         style={{ zIndex: "0" }}
         className="canvas"

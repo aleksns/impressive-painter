@@ -8,7 +8,7 @@
 <br />
 
 
-![impressive-app-main](https://user-images.githubusercontent.com/75623459/143688290-753af27a-2c91-4a64-a727-fe1f61f416e0.jpg)
+![impressive-painter-main](https://user-images.githubusercontent.com/75623459/144750120-cacde121-ca4d-4357-9fa3-4e74e680d7ac.jpg)
 
 <br />
 
@@ -18,7 +18,7 @@
 
 ### - Main Tools
 
-![image](https://user-images.githubusercontent.com/75623459/143688337-c31ddd8a-f5fa-4c95-a43c-594ec621ad84.png)
+![image](https://user-images.githubusercontent.com/75623459/144750076-1f7e3668-f26f-4b2c-8f15-2fc4933fcb7a.png)
 
 - `Clear (clears the canvas) and Save (saves a drawing in png format) buttons`
 

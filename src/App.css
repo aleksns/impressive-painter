@@ -26,16 +26,35 @@ header {
   z-index: 2;
 }
 
-h4 {
-  margin: 0;
-  font-weight: 400;
+body {
   font-family: "Century Gothic";
-  font-size: 1rem;
-  letter-spacing: 0.1rem;
-  color: #ffffff;
+  letter-spacing: 0.05rem;
 }
 
-select, button, a {
+h4 {
+  cursor: default;
+  margin: 0;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--white-background);
+}
+
+h5 {
+  cursor: default;
+  text-align: center;
+  margin: 0;
+  transition-duration: var(--transition-time);
+  font-size: 10px;
+  color: var(--white-background);
+}
+
+.highlighted-text {
+  color: var(--yellow-dark);
+}
+
+select,
+button,
+a {
   font-family: "Century Gothic";
   font-size: 1rem;
   font-weight: 600;
@@ -48,7 +67,7 @@ a {
   padding: 2px 11px;
   text-decoration: none;
   color: #ffffff;
-  margin: 0.5em;
+  margin-left: 0.5em;
   border-radius: 15px;
   background-color: #1d92ff;
   transition-duration: var(--transition-time);
@@ -75,11 +94,17 @@ a:active {
 }
 
 .container-git-link {
- display: flex;
- justify-content: flex-end;
- width: 100%;
- white-space: nowrap;
- margin-right: 1em;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  white-space: nowrap;
+  margin-right: 1em;
+}
+
+.container-clear-save {
+  display: flex;
+  flex-direction: row;
+  margin: 0.7em 0.5em 0.6em;
 }
 
 .container-tools-btns {
@@ -90,6 +115,15 @@ a:active {
   height: 40px;
   background-color: var(--white-background);
   border-radius: var(--tools-border-radius);
+}
+
+.container-color-with-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 85px;
+  margin: 0.4em 0.3em 0.7em;
 }
 
 .select-stroke-solid {
@@ -131,7 +165,6 @@ a:active {
 
 .slider-width-label {
   text-align: center;
-  cursor: default;
 }
 
 .logo-nyancat {
@@ -165,13 +198,13 @@ input[type="range"] {
   overflow: hidden;
   -webkit-appearance: none;
   background-color: #eaecee;
+  border-radius: var(--tools-border-radius);
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
   height: 12px;
   -webkit-appearance: none;
   color: var(--blue);
-  /* margin-top: -1px; */
 }
 input[type="range"]::-webkit-slider-thumb:hover {
   box-shadow: -100px 0 0 100px var(--blue);
@@ -247,9 +280,9 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .color-picker {
-  height: 27px;
-  width: 37px;
-  margin: 0.3em;
+  height: 20px;
+  width: 30px;
+  margin: 0.2em;
   transition-duration: var(--transition-time);
   cursor: pointer;
 }
@@ -257,13 +290,7 @@ input[type="range"]::-ms-fill-upper {
   box-shadow: 0 0 var(--tools-shadow-radius) var(--blue);
 }
 
-.container-clear-save {
-  display: flex;
-  flex-direction: row;
-}
-
 .btn-clear {
-  margin: 0.5em;
   border-radius: 15px;
   background-color: #ffffff;
   color: #000000;
@@ -309,7 +336,8 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .btn-color-rainbow {
-  background: url("./images/btn-colorRainbow.png") no-repeat scroll 0 0 transparent;
+  background: url("./images/btn-colorRainbow.png") no-repeat scroll 0 0
+    transparent;
   background-size: 100% 100%;
 }
 
@@ -339,9 +367,9 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .btn-color-tools {
-  margin-top: 0.8em;
-  height: 35px;
-  width: 45px;
+  margin-top: 0.3em;
+  height: 25px;
+  width: 35px;
   border-radius: var(--tools-border-radius);
 }
 
@@ -361,7 +389,7 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .btn-colors-palette:hover {
-  border: 2px solid #00FFFF;
+  border: 2px solid #00ffff;
 }
 
 .btn-toggled {
@@ -384,8 +412,13 @@ input[type="range"]::-ms-fill-upper {
   box-shadow: 0 0 var(--tools-shadow-radius) var(--yellow-secondary);
 }
 
-@keyframes movingNyanCatLogo{
-   from { margin-left: -20%; } to { margin-left: 150%}; 
+@keyframes movingNyanCatLogo {
+  from {
+    margin-left: -20%;
+  }
+  to {
+    margin-left: 150%;
+  }
 }
 
 *[disabled],

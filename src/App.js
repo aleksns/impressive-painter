@@ -169,6 +169,11 @@ export default function App() {
         finishDrawingRect(e);
         break;
 
+      case "brush":
+      case "eraser":
+      case "brushRainbow":
+        break;
+
       default:
         console.log("Error. Something went wrong handling 'Mouse OUT event'.");
         break;
@@ -176,7 +181,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    //draft canvas
+    //main canvas
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -189,7 +194,7 @@ export default function App() {
     context.lineJoin = "round";
     contextRef.current = context;
 
-    //main canvas
+    //draft canvas
     const canvas2 = canvas2Ref.current;
     canvas2.width = window.innerWidth;
     canvas2.height = window.innerHeight;

@@ -56,41 +56,51 @@ export default function ColorPalette(props) {
         className="container-color-tools"
         style={isNyanCat ? { opacity: "0", cursor: "default" } : {}}
       >
-        <div className="container-current-color btn-color-tools tools-section">
-          <div
-            className="current-color"
-            style={
-              !isColorChangeNotAllowed()
-                ? { background: currentColor }
-                : {
-                    background: currentColor,
-                    opacity: 0.6,
-                  }
-            }
-          ></div>
-          <input
-            disabled={isColorChangeNotAllowed()}
-            id="input-color-picker"
-            type="color"
-            value="#000000"
-            className="color-picker"
-            style={isColorChangeNotAllowed() ? { opacity: 0 } : {}}
-            onChange={handleColorPickerChange}
-          ></input>
+        
+        <div className="container-color-with-text">
+          <h5>Color</h5>
+          <div className="container-current-color btn-color-tools">
+            <div
+              className="current-color"
+              style={
+                !isColorChangeNotAllowed()
+                  ? { background: currentColor }
+                  : {
+                      background: currentColor,
+                      opacity: 0.6,
+                    }
+              }
+            ></div>
+            <input
+              disabled={isColorChangeNotAllowed()}
+              id="input-color-picker"
+              type="color"
+              value="#000000"
+              className="color-picker"
+              style={isColorChangeNotAllowed() ? { opacity: 0 } : {}}
+              onChange={handleColorPickerChange}
+            ></input>
+          </div>
         </div>
+
         <BtnsColorContainer
           handleColorPaletteChange={handleColorPaletteChange}
           isColorChangeNotAllowed={isColorChangeNotAllowed}
           isNyanCat={isNyanCat}
         />
-        <button
-          disabled={!isColorRainbowChangeAllowed()}
-          className={`btn btn-color-tools btn-color-rainbow tools-section ${
-            isColorRainbow ? "btn-color-rainbow-active" : ""
-          }`}
-          style={isNyanCat ? { cursor: "default" } : {}}
-          onClick={handleColorRainbowChange}
-        ></button>
+        <div className="container-color-with-text">
+          <h5 className={isColorRainbow ? "highlighted-text" : ""}>
+            Rainbow Color
+          </h5>
+          <button
+            disabled={!isColorRainbowChangeAllowed()}
+            className={`btn btn-color-tools btn-color-rainbow ${
+              isColorRainbow ? "btn-color-rainbow-active" : ""
+            }`}
+            style={isNyanCat ? { cursor: "default" } : {}}
+            onClick={handleColorRainbowChange}
+          ></button>
+        </div>
       </div>
     </>
   );

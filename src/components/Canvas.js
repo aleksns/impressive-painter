@@ -15,7 +15,7 @@ export default function Canvas(props) {
   return (
     <>
       <canvas
-        id="draft-layer"
+        id="main-layer"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
@@ -25,7 +25,7 @@ export default function Canvas(props) {
         className="canvas"
       />
       <canvas
-        id="main-layer"
+        id="draft-layer"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}

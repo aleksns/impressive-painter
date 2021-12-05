@@ -1,3 +1,14 @@
+### 28.11.2021 update
+
+#### Fixes: 
+- Shapes are being correctly drawn in mouseOut scenarios
+
+#### Main:
+- added mouseOut event due to color changing bug and incorrect shape drawing when mouseOut
+
+
+### 27.11.2021 update
+
 #### Fixes: 
 - fixed fps drop in browser console mode, with rainbow brush mode on
 - fixed btns color palette default cursor when in logo nyancat mode

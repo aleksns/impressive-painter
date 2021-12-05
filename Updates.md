@@ -1,3 +1,13 @@
+### 05.12.2021 update
+
+#### Main:
+- fixed erroneous console log during mouseOut event
+
+#### UI:
+- added label for Color Picker and RainbowColor brush, to avoid confusion
+- rainbowColor brush label is being highlighted when the button is toggled
+- rounded width-slider a bit
+
 ### 28.11.2021 update
 
 #### Fixes: 

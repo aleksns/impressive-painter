@@ -47,7 +47,7 @@
 
 - `All custom CSS`
 
-- `All images (buttons, icons, etc) are self-made (except Github logo)`
+- `All images (buttons, icons, etc) are self-made (except Github logo which was taken from Github site)`
 
 - `All buttons have 3 different states: normal, hover, active`
 

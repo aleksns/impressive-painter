@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/impressive-painter/static/css/main.3bd5af7d.css",
-    "main.js": "/impressive-painter/static/js/main.39313627.js",
+    "main.js": "/impressive-painter/static/js/main.0598fef2.js",
     "static/js/787.3d2c3673.chunk.js": "/impressive-painter/static/js/787.3d2c3673.chunk.js",
     "static/media/btn-colorRainbow.png": "/impressive-painter/static/media/btn-colorRainbow.75acf12505ec72ac7a7b.png",
     "static/media/btn-nyanCat.png": "/impressive-painter/static/media/btn-nyanCat.e6f6dbf07846da94b07a.png",
@@ -9,11 +9,11 @@
     "static/media/btn-eraser.png": "/impressive-painter/static/media/btn-eraser.87653f8a124fda6302a9.png",
     "index.html": "/impressive-painter/index.html",
     "main.3bd5af7d.css.map": "/impressive-painter/static/css/main.3bd5af7d.css.map",
-    "main.39313627.js.map": "/impressive-painter/static/js/main.39313627.js.map",
+    "main.0598fef2.js.map": "/impressive-painter/static/js/main.0598fef2.js.map",
     "787.3d2c3673.chunk.js.map": "/impressive-painter/static/js/787.3d2c3673.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3bd5af7d.css",
-    "static/js/main.39313627.js"
+    "static/js/main.0598fef2.js"
   ]
 }

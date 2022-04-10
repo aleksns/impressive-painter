@@ -12,6 +12,12 @@
 
 <br />
 
+## Video example
+
+https://user-images.githubusercontent.com/75623459/162623453-58ea557e-78e7-4e60-a873-94adf3f552f5.mp4
+
+<br />
+
 # Features
 
 ### - The canvas and the mouse position upscale for the different screen resolutions

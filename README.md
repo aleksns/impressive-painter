@@ -12,6 +12,18 @@
 
 <br />
 
+## Video example
+### *Note: due to screen recorder system behavior, recorded video has a few differences with real project: mouse cursor position displayed with offset, color-picker and shape select windows are not displayed in the recorded video. Video speed is set to 150%*
+
+<br />
+
+https://user-images.githubusercontent.com/75623459/162623766-a562dedb-0799-4572-90f3-b51aa70df358.mp4
+
+
+
+
+<br />
+
 # Features
 
 ### - The canvas and the mouse position upscale for the different screen resolutions

@@ -6,17 +6,21 @@ import NyanCat from "./tools/NyanCat";
 import Canvas from "./components/Canvas";
 import HeaderComponent from "./components/HeaderComponent";
 
+var isTouchEvent = undefined;
+
 export default function App() {
   const canvasRef = useRef(null);
   const canvas2Ref = useRef(null);
   const contextRef = useRef(null);
   const context2Ref = useRef(null);
+  const isMouseDown = useRef(false);
+
+  const currentTool = useRef("brush");
+  const [isStroke, setIsStroke] = useState(true);
+  const isStrokeRef = useRef(isStroke);
 
   const [currentColor, setCurrentColor] = useState("#000000");
-  const [currentTool, setCurrentTool] = useState("brush");
-  const [isStroke, setIsStroke] = useState(true);
   const [isColorRainbow, setIsColorRainbow] = useState(false);
-  const [isMouseDown, setIsMouseDown] = useState(false);
 
   const [width, setWidth] = useState(40);
   const widthHalf = width / 2;
@@ -47,11 +51,10 @@ export default function App() {
     context2Ref,
     canvasRef,
     clearTheCanvas,
-    isStroke,
+    isStrokeRef,
     currentColor,
-    getScaledMouseCoordinates,
-    isMouseDown,
-    setIsMouseDown
+    getScaledCoordinates,
+    isMouseDown
   );
 
   const {
@@ -65,9 +68,8 @@ export default function App() {
   } = BrushComponent(
     context2Ref,
     setCurrentColor,
-    getScaledMouseCoordinates,
+    getScaledCoordinates,
     isMouseDown,
-    setIsMouseDown,
     width,
     widthHalf
   );
@@ -76,7 +78,7 @@ export default function App() {
     NyanCat(context2Ref);
 
   const handleMouseDown = (e) => {
-    switch (currentTool) {
+    switch (currentTool.current) {
       case "brush":
       case "eraser":
         startDrawingBrush(e);
@@ -85,6 +87,7 @@ export default function App() {
       case "brushRainbow":
         rainbowColorChange();
         startDrawingBrush(e);
+      break;
 
       case "arc":
       case "rectangle":
@@ -99,7 +102,7 @@ export default function App() {
   };
 
   const handleMouseUp = (e) => {
-    switch (currentTool) {
+    switch (currentTool.current) {
       case "brush":
       case "eraser":
       case "brushRainbow":
@@ -125,7 +128,10 @@ export default function App() {
   };
 
   const handleMouseMove = (e) => {
-    switch (currentTool) {
+    if (!isMouseDown.current) {
+      return;
+    }
+    switch (currentTool.current) {
       case "brush":
       case "eraser":
         drawBrush(e);
@@ -154,9 +160,9 @@ export default function App() {
   };
 
   const handleMouseOut = (e) => {
-    setIsMouseDown(false);
+    isMouseDown.current = false;
 
-    switch (currentTool) {
+    switch (currentTool.current) {
       case "arc":
         finishDrawingArc(e);
         break;
@@ -181,7 +187,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    //main canvas
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -194,7 +199,6 @@ export default function App() {
     context.lineJoin = "round";
     contextRef.current = context;
 
-    //draft canvas
     const canvas2 = canvas2Ref.current;
     canvas2.width = window.innerWidth;
     canvas2.height = window.innerHeight;
@@ -206,6 +210,34 @@ export default function App() {
     context2.lineWidth = width;
     context2.lineJoin = "round";
     context2Ref.current = context2;
+
+    isTouchEvent =
+      !matchMedia("(pointer:fine)").matches || "ontouchstart" in window;
+
+    if (isTouchEvent) {
+      canvasRef.current.addEventListener("touchstart", handleMouseDown, {
+        passive: false,
+      });
+      canvasRef.current.addEventListener("touchend", handleMouseUp, {
+        passive: false,
+      });
+      canvasRef.current.addEventListener("touchmove", handleMouseMove, {
+        passive: false,
+      });
+    } else {
+      canvasRef.current.addEventListener("mousedown", handleMouseDown, {
+        passive: false,
+      });
+      canvasRef.current.addEventListener("mouseup", handleMouseUp, {
+        passive: false,
+      });
+      canvasRef.current.addEventListener("mousemove", handleMouseMove, {
+        passive: false,
+      });
+      canvasRef.current.addEventListener("mouseout", handleMouseOut, {
+        passive: false,
+      });
+    }
   }, []);
 
   const handleCursorChange = (cursorValue) => {
@@ -232,13 +264,21 @@ export default function App() {
     }
   };
 
-  function getScaledMouseCoordinates({ nativeEvent }) {
+  function getScaledCoordinates(e) {
     // calculate coordinates for the current resolution
     var bounds = canvas2Ref.current.getBoundingClientRect();
-    const { offsetX, offsetY } = nativeEvent;
 
-    var x = offsetX;
-    var y = offsetY;
+    var x;
+    var y;
+
+    if (isTouchEvent) {
+      x = e.targetTouches[0].pageX - bounds.left;
+      y = e.targetTouches[0].pageY - bounds.top;
+    } else {
+      x = e.clientX - bounds.left;
+      y = e.clientY - bounds.top;
+    }
+
     x = x / bounds.width;
     y = y / bounds.height;
 
@@ -262,13 +302,13 @@ export default function App() {
         currentColor={currentColor}
         setCurrentColor={setCurrentColor}
         currentTool={currentTool}
-        setCurrentTool={setCurrentTool}
         width={width}
         setWidth={setWidth}
         handleCursorChange={handleCursorChange}
         setEraserColor={setEraserColor}
         isStroke={isStroke}
         setIsStroke={setIsStroke}
+        isStrokeRef={isStrokeRef}
         isColorRainbow={isColorRainbow}
         setIsColorRainbow={setIsColorRainbow}
         isNyanCat={isNyanCat}
@@ -280,10 +320,6 @@ export default function App() {
         cursorCustom={cursorCustom}
         canvasRef={canvasRef}
         canvas2Ref={canvas2Ref}
-        handleMouseDown={handleMouseDown}
-        handleMouseUp={handleMouseUp}
-        handleMouseMove={handleMouseMove}
-        handleMouseOut={handleMouseOut}
       />
     </>
   );

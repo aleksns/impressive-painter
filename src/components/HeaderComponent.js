@@ -14,13 +14,13 @@ export default function HeaderComponent(props) {
     currentColor,
     setCurrentColor,
     currentTool,
-    setCurrentTool,
     width,
     setWidth,
     handleCursorChange,
     setEraserColor,
     isStroke,
     setIsStroke,
+    isStrokeRef,
     isColorRainbow,
     setIsColorRainbow,
     isNyanCat,
@@ -51,13 +51,14 @@ export default function HeaderComponent(props) {
           contextRef={contextRef}
           context2Ref={context2Ref}
           currentColor={currentColor}
-          setCurrentTool={setCurrentTool}
+          currentTool={currentTool}    
           width={width}
           setWidth={setWidth}
           handleCursorChange={handleCursorChange}
           setEraserColor={setEraserColor}
           isStroke={isStroke}
           setIsStroke={setIsStroke}
+          isStrokeRef={isStrokeRef}
           isColorRainbow={isColorRainbow}
           isNyanCat={isNyanCat}
           setIsNyanCat={setIsNyanCat}
@@ -69,7 +70,6 @@ export default function HeaderComponent(props) {
           currentColor={currentColor}
           setCurrentColor={setCurrentColor}
           currentTool={currentTool}
-          setCurrentTool={setCurrentTool}
           isColorRainbow={isColorRainbow}
           setIsColorRainbow={setIsColorRainbow}
           isNyanCat={isNyanCat}

@@ -87,6 +87,7 @@ a:active {
   height: 91vh;
   flex-grow: 0;
   flex-shrink: 0;
+  touch-action: none;
 }
 
 .tools-section {

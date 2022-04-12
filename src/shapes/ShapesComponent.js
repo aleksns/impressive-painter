@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useRef } from "react";
 import "../App.css";
 import Arc from "./Arc";
 import Rectangle from "./Rectangle";
@@ -9,40 +9,37 @@ export default function ShapesComponent(
   context2Ref,
   canvasRef,
   clearTheCanvas,
-  isStroke,
+  isStrokeRef,
   currentColor,
-  getScaledMouseCoordinates,
-  isMouseDown,
-  setIsMouseDown
+  getScaledCoordinates,
+  isMouseDown
 ) {
-  const [startX, setStartX] = useState(null);
-  const [startY, setStartY] = useState(null);
+  const startX = useRef(null);
+  const startY = useRef(null);
 
   const { finishDrawingArc, drawArc } = Arc(
     contextRef,
     context2Ref,
     canvasRef,
     clearTheCanvas,
-    isStroke,
+    isStrokeRef,
     currentColor,
     isMouseDown,
-    setIsMouseDown,
     startX,
     startY,
-    getScaledMouseCoordinates
+    getScaledCoordinates
   );
   const { finishDrawingRect, drawRect } = Rectangle(
     contextRef,
     context2Ref,
     canvasRef,
     clearTheCanvas,
-    isStroke,
+    isStrokeRef,
     currentColor,
     isMouseDown,
-    setIsMouseDown,
     startX,
     startY,
-    getScaledMouseCoordinates
+    getScaledCoordinates
   );
   const { finishDrawingLine, drawLine } = Line(
     contextRef,
@@ -50,21 +47,21 @@ export default function ShapesComponent(
     canvasRef,
     clearTheCanvas,
     isMouseDown,
-    setIsMouseDown,
     startX,
     startY,
-    getScaledMouseCoordinates
+    getScaledCoordinates
   );
 
-  const startDrawingShape = ({ nativeEvent }) => {
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
+  const startDrawingShape = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+    var { x, y } = getScaledCoordinates(e);
 
-    setStartX(x);
-    setStartY(y);
-    setIsMouseDown(true);
+    startX.current = x;
+    startY.current = y;
+
+    isMouseDown.current = true;
   };
 
   return {

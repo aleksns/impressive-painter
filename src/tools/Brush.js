@@ -1,19 +1,14 @@
-import React, { useState } from "react";
 import "../App.css";
 
 export default function Brush(
   context2Ref,
-  getScaledMouseCoordinates,
-  isMouseDown
+  getScaledCoordinates
 ) {
-  const drawBrush = ({ nativeEvent }) => {
-    if (!isMouseDown) {
-      return;
-    }
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
+  const drawBrush = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+    var { x, y } = getScaledCoordinates(e);
 
     context2Ref.current.lineTo(x, y);
     context2Ref.current.stroke();

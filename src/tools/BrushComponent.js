@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "../App.css";
 import Brush from "./Brush";
 import Eraser from "./Eraser";
@@ -7,16 +6,14 @@ import BrushRainbow from "./BrushRainbow";
 export default function BrushComponent(
   context2Ref,
   setCurrentColor,
-  getScaledMouseCoordinates,
+  getScaledCoordinates,
   isMouseDown,
-  setIsMouseDown,
   width,
   widthHalf
 ) {
   const { drawBrush } = Brush(
     context2Ref,
-    getScaledMouseCoordinates,
-    isMouseDown
+    getScaledCoordinates
   );
 
   const { setEraserColor, cursorEraser } = Eraser(
@@ -28,16 +25,17 @@ export default function BrushComponent(
   const { drawBrushRainbow, rainbowColorChange } = BrushRainbow(
     context2Ref,
     setCurrentColor,
-    getScaledMouseCoordinates,
+    getScaledCoordinates,
     isMouseDown
   );
 
-  const startDrawingBrush = ({ nativeEvent }) => {
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
-    setIsMouseDown(true);
+  const startDrawingBrush = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    isMouseDown.current = true;
 
-    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+    var { x, y } = getScaledCoordinates(e);
 
     context2Ref.current.beginPath();
     context2Ref.current.moveTo(x, y);
@@ -48,7 +46,7 @@ export default function BrushComponent(
 
   const finishDrawingBrush = (e) => {
     context2Ref.current.closePath();
-    setIsMouseDown(false);
+    isMouseDown.current = false;
   };
 
   return {

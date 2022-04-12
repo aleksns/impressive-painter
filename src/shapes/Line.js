@@ -1,4 +1,3 @@
-import React from "react";
 import "../App.css";
 
 export default function Line(
@@ -7,17 +6,16 @@ export default function Line(
   canvasRef,
   clearTheCanvas,
   isMouseDown,
-  setIsMouseDown,
   startX,
   startY,
-  getScaledMouseCoordinates
+  getScaledCoordinates
 ) {
   var endX;
   var endY;
 
   const finishDrawingLine = () => {
     context2Ref.current.beginPath();
-    context2Ref.current.moveTo(startX, startY);
+    context2Ref.current.moveTo(startX.current, startY.current);
     context2Ref.current.lineTo(endX, endY);
     context2Ref.current.stroke();
 
@@ -25,23 +23,21 @@ export default function Line(
     context2Ref.current.closePath();
 
     clearTheCanvas(contextRef, canvasRef);
-    setIsMouseDown(false);
+    isMouseDown.current = false;
   };
 
-  const drawLine = ({ nativeEvent }) => {
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
-    if (!isMouseDown) {
-      return;
-    }
-    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+  const drawLine = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    var { x, y } = getScaledCoordinates(e);
     endX = x;
     endY = y;
 
     clearTheCanvas(contextRef, canvasRef);
 
     contextRef.current.beginPath();
-    contextRef.current.moveTo(startX, startY);
+    contextRef.current.moveTo(startX.current, startY.current);
     contextRef.current.lineTo(endX, endY);
     contextRef.current.stroke();
 

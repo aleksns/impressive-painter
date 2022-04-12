@@ -9,11 +9,12 @@ export default function ToolsContainer(props) {
     currentColor,
     width,
     setWidth,
-    setCurrentTool,
+    currentTool,
     handleCursorChange,
     setEraserColor,
     isStroke,
     setIsStroke,
+    isStrokeRef,
     isColorRainbow,
     isNyanCat,
     setIsNyanCat,
@@ -35,7 +36,8 @@ export default function ToolsContainer(props) {
     }
     setCurrentCursor("eraser");
     resetButtons();
-    setCurrentTool("eraser");
+    currentTool.current = "eraser";
+
     updateValues();
     setEraserColor();
     setIsEraser(!isEraser);
@@ -47,7 +49,8 @@ export default function ToolsContainer(props) {
     }
     setCurrentCursor("crosshair");
     resetButtons();
-    setCurrentTool("rectangle");
+    currentTool.current = "rectangle";
+
     updateValues();
     contextRef.current.lineJoin = "miter";
     context2Ref.current.lineJoin = "miter";
@@ -60,7 +63,7 @@ export default function ToolsContainer(props) {
     }
     setCurrentCursor("crosshair");
     resetButtons();
-    setCurrentTool("arc");
+    currentTool.current = "arc";
     updateValues();
     setIsArc(!isArc);
   };
@@ -73,11 +76,10 @@ export default function ToolsContainer(props) {
     resetButtons();
     updateValues();
     setIsBrush(!isBrush);
-    setCurrentTool("brush");
     if (isColorRainbow) {
-      setCurrentTool("brushRainbow");
+      currentTool.current = "brushRainbow";
     } else {
-      setCurrentTool("brush");
+      currentTool.current = "brush";
     }
   };
 
@@ -87,7 +89,7 @@ export default function ToolsContainer(props) {
     }
     setCurrentCursor("crosshair");
     resetButtons();
-    setCurrentTool("line");
+    currentTool.current = "line";
     updateValues();
     setIsLine(!isLine);
   };
@@ -97,13 +99,15 @@ export default function ToolsContainer(props) {
       return;
     }
     resetButtons();
-    setCurrentTool("brushRainbow");
+    currentTool.current = "brushRainbow";
     setIsBrushRainbowTool(!isBrushRainbowTool);
     setCurrentCursor("nyanCat");
     setNyanCatValues();
   };
 
   const handleStrokeSolid = () => {
+    //isStroke.current = !isStroke.current;
+    isStrokeRef.current = !isStrokeRef.current;
     setIsStroke(!isStroke);
   };
 
@@ -127,10 +131,13 @@ export default function ToolsContainer(props) {
 
   const updateValues = () => {
     contextRef.current.strokeStyle = currentColor;
+    contextRef.current.fillStyle = currentColor;
     contextRef.current.lineWidth = width;
     contextRef.current.lineJoin = "round";
+    
     context2Ref.current.lineJoin = "round";
     context2Ref.current.strokeStyle = currentColor;
+    context2Ref.current.fillStyle = currentColor;
     context2Ref.current.lineWidth = width;
   };
 
@@ -183,7 +190,7 @@ export default function ToolsContainer(props) {
 
       <select
         disabled={!isRectangleOrArc()}
-        value={isStroke}
+        value={isStrokeRef.current}
         onChange={handleStrokeSolid}
         className="select-stroke-solid"
         style={isNyanCat ? { opacity: "0", cursor: "default" } : {}}

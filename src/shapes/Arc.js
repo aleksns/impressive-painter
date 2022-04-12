@@ -1,4 +1,3 @@
-import React from "react";
 import "../App.css";
 
 export default function Arc(
@@ -6,60 +5,54 @@ export default function Arc(
   context2Ref,
   canvasRef,
   clearTheCanvas,
-  isStroke,
+  isStrokeRef,
   currentColor,
   isMouseDown,
-  setIsMouseDown,
   startX,
   startY,
-  getScaledMouseCoordinates
+  getScaledCoordinates
 ) {
   var endX;
 
   const handleArcFill = (contextRefValue) => {
-    if (isStroke) {
+    if (isStrokeRef.current) {
       contextRefValue.current.stroke();
     } else {
-      contextRefValue.current.fillStyle = currentColor;
+      //contextRefValue.current.fillStyle = currentColor;
       contextRefValue.current.fill();
     }
   };
 
   const finishDrawingArc = () => {
-    let radius = endX - startX;
+    let radius = endX - startX.current;
 
     if (radius < 0) {
       radius = radius * -1;
     }
 
     context2Ref.current.beginPath();
-    context2Ref.current.moveTo(startX + radius, startY);
-    context2Ref.current.arc(startX, startY, radius, 0, Math.PI * 2, true);
+    context2Ref.current.moveTo(startX.current + radius, startY.current);
+    context2Ref.current.arc(startX.current, startY.current, radius, 0, Math.PI * 2, true);
     handleArcFill(context2Ref);
 
     clearTheCanvas(contextRef, canvasRef);
-    setIsMouseDown(false);
+    isMouseDown.current = false;
   };
 
-  const drawArc = ({ nativeEvent }) => {
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
-    if (!isMouseDown) {
-      return;
-    }
-    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+  const drawArc = (e) => {
+    var { x, y } = getScaledCoordinates(e);
     endX = x;
 
     clearTheCanvas(contextRef, canvasRef);
-    let radius = endX - startX;
+    let radius = endX - startX.current;
 
     if (radius < 0) {
       radius = radius * -1;
     }
 
     contextRef.current.beginPath();
-    contextRef.current.moveTo(startX + radius, startY);
-    contextRef.current.arc(startX, startY, radius, 0, Math.PI * 2, true);
+    contextRef.current.moveTo(startX.current + radius, startY.current);
+    contextRef.current.arc(startX.current, startY.current, radius, 0, Math.PI * 2, true);
     handleArcFill(contextRef);
   };
 

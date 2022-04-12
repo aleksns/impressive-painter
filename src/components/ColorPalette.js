@@ -9,7 +9,6 @@ export default function ColorPalette(props) {
     currentColor,
     setCurrentColor,
     currentTool,
-    setCurrentTool,
     isColorRainbow,
     setIsColorRainbow,
     isNyanCat,
@@ -20,6 +19,9 @@ export default function ColorPalette(props) {
     setCurrentColor(newColor);
     contextRef.current.strokeStyle = newColor;
     context2Ref.current.strokeStyle = newColor;
+
+    contextRef.current.fillStyle = newColor;
+    context2Ref.current.fillStyle = newColor;
   };
 
   const handleColorPickerChange = (e) => {
@@ -33,20 +35,20 @@ export default function ColorPalette(props) {
   const handleColorRainbowChange = () => {
     setIsColorRainbow(!isColorRainbow);
     if (!isColorRainbow) {
-      setCurrentTool("brushRainbow");
+      currentTool.current = "brushRainbow";
       return;
     }
-    setCurrentTool("brush");
+    currentTool.current = "brush";
   };
 
   function isColorChangeNotAllowed() {
-    return currentTool == "eraser" || currentTool == "brushRainbow";
+    return currentTool.current == "eraser" || currentTool.current == "brushRainbow";
   }
 
   function isColorRainbowChangeAllowed() {
     return (
-      currentTool == "brush" ||
-      (currentTool == "brushRainbow" && isNyanCat == false)
+      currentTool.current == "brush" ||
+      (currentTool.current == "brushRainbow" && isNyanCat == false)
     );
   }
 

@@ -1,24 +1,21 @@
-import React, { useState } from "react";
+import { useRef } from "react";
 import "../App.css";
 
 export default function BrushRainbow(
   context2Ref,
   setCurrentColor,
-  getScaledMouseCoordinates,
-  isMouseDown
+  getScaledCoordinates
 ) {
-  const [hue, setHue] = useState(0);
 
-  const drawBrushRainbow = ({ nativeEvent }) => {
-    if (!isMouseDown) {
-      return;
-    }
-    nativeEvent.preventDefault();
-    nativeEvent.stopPropagation();
+  const hue = useRef(0);
+
+  const drawBrushRainbow = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
     rainbowColorChange();
 
-    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+    var { x, y } = getScaledCoordinates(e);
 
     context2Ref.current.lineTo(x, y);
     context2Ref.current.stroke();
@@ -28,13 +25,12 @@ export default function BrushRainbow(
   };
 
   const rainbowColorChange = () => {
-    let newColor = `hsl(${hue},${100}%,${50}%)`;
+    let newColor = `hsl(${hue.current},${100}%,${50}%)`;
     updateColorValues(newColor);
 
-    let prevHue = hue;
-    setHue(prevHue + 1);
-    if (hue >= 360) {
-      setHue(0);
+    hue.current = hue.current + 1;
+    if (hue.current >= 360) {
+      hue.current = 0;
     }
   };
 

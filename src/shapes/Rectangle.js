@@ -1,4 +1,3 @@
-import React from "react";
 import "../App.css";
 
 export default function Rectangle(
@@ -6,13 +5,12 @@ export default function Rectangle(
   context2Ref,
   canvasRef,
   clearTheCanvas,
-  isStroke,
+  isStrokeRef,
   currentColor,
   isMouseDown,
-  setIsMouseDown,
   startX,
   startY,
-  getScaledMouseCoordinates
+  getScaledCoordinates
 ) {
   var endX;
   var endY;
@@ -21,32 +19,28 @@ export default function Rectangle(
   var height;
 
   const handleRectFill = (contextRefValue) => {
-    if (isStroke) {
-      contextRefValue.current.strokeRect(startX, startY, width, height);
+    if (isStrokeRef.current) {
+      contextRefValue.current.strokeRect(startX.current, startY.current, width, height);
     } else {
-      contextRefValue.current.fillStyle = currentColor;
-      contextRefValue.current.fillRect(startX, startY, width, height);
+      //contextRefValue.current.fillStyle = currentColor;
+      contextRefValue.current.fillRect(startX.current, startY.current, width, height);
     }
   };
 
   const finishDrawingRect = () => {
     handleRectFill(context2Ref);
     clearTheCanvas(contextRef, canvasRef);
-    setIsMouseDown(false);
+    isMouseDown.current = false;
   };
 
-  const drawRect = ({ nativeEvent }) => {
-    if (!isMouseDown) {
-      return;
-    }
-
-    var { x, y } = getScaledMouseCoordinates({ nativeEvent });
+  const drawRect = (e) => {
+    var { x, y } = getScaledCoordinates(e);
     endX = x;
     endY = y;
 
     clearTheCanvas(contextRef, canvasRef);
-    width = endX - startX;
-    height = endY - startY;
+    width = endX - startX.current;
+    height = endY - startY.current;
     handleRectFill(contextRef);
   };
 

@@ -6,7 +6,7 @@ import NyanCat from "./tools/NyanCat";
 import Canvas from "./components/Canvas";
 import HeaderComponent from "./components/HeaderComponent";
 
-var isTouchEvent = undefined;
+var isTouchEvent = !matchMedia("(pointer:fine)").matches || "ontouchstart" in window;
 
 export default function App() {
   const canvasRef = useRef(null);
@@ -22,7 +22,7 @@ export default function App() {
   const [currentColor, setCurrentColor] = useState("#000000");
   const [isColorRainbow, setIsColorRainbow] = useState(false);
 
-  const [width, setWidth] = useState(40);
+  const [width, setWidth] = useState(isTouchEvent? 10 : 30);
   const widthHalf = width / 2;
 
   const cursorDefault = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23000000" opacity="0.2" height="${width}" viewBox="0 0 ${width} ${width}" width="${width}"><circle cx="${widthHalf}" cy="${widthHalf}" r="${widthHalf}" fill="%23000000" /></svg>') ${widthHalf} ${widthHalf}, auto`;
@@ -187,6 +187,7 @@ export default function App() {
   };
 
   useEffect(() => {
+
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -211,8 +212,6 @@ export default function App() {
     context2.lineJoin = "round";
     context2Ref.current = context2;
 
-    isTouchEvent =
-      !matchMedia("(pointer:fine)").matches || "ontouchstart" in window;
 
     if (isTouchEvent) {
       canvasRef.current.addEventListener("touchstart", handleMouseDown, {

@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/impressive-painter/static/css/main.3bd5af7d.css",
-    "main.js": "/impressive-painter/static/js/main.50cd79cc.js",
+    "main.css": "/impressive-painter/static/css/main.2c1d3a9e.css",
+    "main.js": "/impressive-painter/static/js/main.df9c05c6.js",
     "static/js/787.3d2c3673.chunk.js": "/impressive-painter/static/js/787.3d2c3673.chunk.js",
     "static/media/btn-colorRainbow.png": "/impressive-painter/static/media/btn-colorRainbow.75acf12505ec72ac7a7b.png",
     "static/media/btn-nyanCat.png": "/impressive-painter/static/media/btn-nyanCat.e6f6dbf07846da94b07a.png",
     "static/media/logo-nyancat.png": "/impressive-painter/static/media/logo-nyancat.ab6da098673cc391d731.png",
     "static/media/btn-eraser.png": "/impressive-painter/static/media/btn-eraser.87653f8a124fda6302a9.png",
     "index.html": "/impressive-painter/index.html",
-    "main.3bd5af7d.css.map": "/impressive-painter/static/css/main.3bd5af7d.css.map",
-    "main.50cd79cc.js.map": "/impressive-painter/static/js/main.50cd79cc.js.map",
+    "main.2c1d3a9e.css.map": "/impressive-painter/static/css/main.2c1d3a9e.css.map",
+    "main.df9c05c6.js.map": "/impressive-painter/static/js/main.df9c05c6.js.map",
     "787.3d2c3673.chunk.js.map": "/impressive-painter/static/js/787.3d2c3673.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3bd5af7d.css",
-    "static/js/main.50cd79cc.js"
+    "static/css/main.2c1d3a9e.css",
+    "static/js/main.df9c05c6.js"
   ]
 }

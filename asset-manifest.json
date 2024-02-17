@@ -1,19 +1,18 @@
 {
   "files": {
-    "main.css": "/impressive-painter/static/css/main.2c1d3a9e.css",
-    "main.js": "/impressive-painter/static/js/main.862f98b7.js",
+    "main.css": "/impressive-painter/static/css/main.35ea7b1e.css",
+    "main.js": "/impressive-painter/static/js/main.e2211ed1.js",
     "static/js/787.3d2c3673.chunk.js": "/impressive-painter/static/js/787.3d2c3673.chunk.js",
     "static/media/btn-colorRainbow.png": "/impressive-painter/static/media/btn-colorRainbow.75acf12505ec72ac7a7b.png",
-    "static/media/btn-nyanCat.png": "/impressive-painter/static/media/btn-nyanCat.e6f6dbf07846da94b07a.png",
-    "static/media/logo-nyancat.png": "/impressive-painter/static/media/logo-nyancat.ab6da098673cc391d731.png",
+    "static/media/btn-nyanCat.png": "/impressive-painter/static/media/btn-nyanCat.bda30c738fef80ff63c8.png",
     "static/media/btn-eraser.png": "/impressive-painter/static/media/btn-eraser.87653f8a124fda6302a9.png",
     "index.html": "/impressive-painter/index.html",
-    "main.2c1d3a9e.css.map": "/impressive-painter/static/css/main.2c1d3a9e.css.map",
-    "main.862f98b7.js.map": "/impressive-painter/static/js/main.862f98b7.js.map",
+    "main.35ea7b1e.css.map": "/impressive-painter/static/css/main.35ea7b1e.css.map",
+    "main.e2211ed1.js.map": "/impressive-painter/static/js/main.e2211ed1.js.map",
     "787.3d2c3673.chunk.js.map": "/impressive-painter/static/js/787.3d2c3673.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2c1d3a9e.css",
-    "static/js/main.862f98b7.js"
+    "static/css/main.35ea7b1e.css",
+    "static/js/main.e2211ed1.js"
   ]
 }
